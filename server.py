@@ -1,21 +1,10 @@
-#
-# Copyright (c) 2024–2025, Daily
-#
-# SPDX-License-Identifier: BSD 2-Clause License
-#
-
-"""server.py.
-
+"""
 Webhook server to handle webhook coming from Daily, create a Daily room and start the bot.
 """
 
-import json
 import os
-import shlex
-import subprocess
 from contextlib import asynccontextmanager
 import time
-
 import aiohttp
 import uvicorn
 from dotenv import load_dotenv
@@ -23,9 +12,6 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 
 load_dotenv()
-
-# ----------------- API ----------------- #
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -73,8 +59,8 @@ async def handle_incoming_daily_webhook(request: Request) -> JSONResponse:
         if not pipecat_service:
             raise HTTPException(status_code=500, detail="PIPECAT_SERVICE environment variable not set")
 
-        # Calculate expiration time (24 hours from now)
-        exp_time = int(time.time()) + (24 * 60 * 60)
+        # Calculate expiration time (1 hour from now)
+        exp_time = int(time.time()) + (1 * 60 * 60)
 
         # Prepare the payload for Pipecat API
         pipecat_payload = {
@@ -99,7 +85,6 @@ async def handle_incoming_daily_webhook(request: Request) -> JSONResponse:
 
         # Call Pipecat API
         pipecat_url = f"https://api.pipecat.daily.co/v1/public/{pipecat_service}/start"
-        #pipecat_url = "https://webhook.site/1c2af478-7bf4-4fed-87e4-7302b0a12f1e"
         headers = {
             "Authorization": f"Bearer {pipecat_api_key}",
             "Content-Type": "application/json"
@@ -144,12 +129,7 @@ async def health_check():
     """Simple health check endpoint."""
     return {"status": "healthy"}
 
-
-# ----------------- Main ----------------- #
-
-
 if __name__ == "__main__":
-    # Run the server
     port = int(os.getenv("PORT", "7860"))
     print(f"Starting server on port {port}")
     uvicorn.run("server:app", host="0.0.0.0", port=port, reload=True)
