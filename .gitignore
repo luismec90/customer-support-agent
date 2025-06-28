@@ -163,3 +163,4 @@ runpod.toml
 # Sensitive scripts with credentials and phone numbers
 call.sh
 deploy.sh
+.idea/
