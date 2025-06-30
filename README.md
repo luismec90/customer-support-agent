@@ -72,9 +72,15 @@ This starter requires the following API keys:
 cp env.example .env
 
 # Edit .env to add your API keys:
+# for bot.py
+# DAILY_API_KEY=
+# DAILY_API_URL=
 # OPENAI_API_KEY=
-# DEEPGRAM_API_KEY=
 # CARTESIA_API_KEY=
+
+# For server.py
+# PIPECAT_API_KEY=
+# PIPECAT_SERVICE=
 ```
 
 **Create a secret set from your .env file**:
