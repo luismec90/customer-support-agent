@@ -61,9 +61,9 @@ pcc auth login
 
 This starter requires the following API keys:
 
+- **Daily and Pipecat API Keys**: Get from [https://pipecat.daily.co/your-organization-name/settings/general](https://pipecat.daily.co)
 - **OpenAI API Key**: Get from [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
 - **Cartesia API Key**: Get from [play.cartesia.ai/keys](https://play.cartesia.ai/keys)
-- **Deepgram API Key**: Get from [deepgram.com](https://deepgram.com/)
 
 ### 4. Set API keys
 
@@ -72,7 +72,8 @@ This starter requires the following API keys:
 cp env.example .env
 
 # Edit .env to add your API keys:
-# for bot.py
+
+# For bot.py
 # DAILY_API_KEY=
 # DAILY_API_URL=
 # OPENAI_API_KEY=
