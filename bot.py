@@ -173,6 +173,14 @@ class DialInHandler:
         async def on_first_participant_joined(transport, participant):
             """Handler for when the first participant joins the call."""
             logger.info("First participant joined: {}", participant["id"])
+            
+            # Start recording the call
+            try:
+                await transport.start_recording()
+                logger.info("Recording started successfully")
+            except Exception as e:
+                logger.error("Failed to start recording: {}", e)
+            
             # Capture the participant's transcription
             await transport.capture_participant_transcription(participant["id"])
 
@@ -301,6 +309,13 @@ async def main(room_url: str, token: str, body: dict):
     @transport.event_handler("on_participant_left")
     async def on_participant_left(transport, participant, reason):
         logger.debug(f"Participant left: {participant}, reason: {reason}")
+                # Stop recording the call
+        try:
+            await transport.stop_recording()
+            logger.info("Recording stopped successfully")
+        except Exception as e:
+            logger.error("Failed to stop recording: {}", e)
+            
         await pipeline_task.cancel()
 
     runner = PipelineRunner(handle_sigint=False, force_gc=True)

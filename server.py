@@ -66,6 +66,7 @@ async def handle_incoming_daily_webhook(request: Request) -> JSONResponse:
         pipecat_payload = {
             "createDailyRoom": True,
             "dailyRoomProperties": {
+                "enable_recording": "cloud",  
                 "sip": {
                     "display_name": caller_phone,
                     "sip_mode": "dial-in",

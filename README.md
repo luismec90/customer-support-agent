@@ -1,27 +1,27 @@
 <!-- @format -->
 
-> 🎉 **Live Demo – Call Now:** **+1&nbsp;209-266-6917**
->
-> If you're looking to launch or scale a voice chat solution, let's connect: **luismontoya3141@gmail.com**
-
 # AI-Powered Customer Support Agent (Dial-in)
 
-This project demonstrates how to create a voice bot that can receive phone calls via Dailys PSTN capabilities to enable voice conversations.
+This project demonstrates how to create a voice chatbot that can receive phone calls and handle customer requests.
+
+> 🎉 **Live Demo – Call: +1&nbsp;209-266-6917**
+>
+> If you're looking to launch or scale a voice chat solution, let's connect: **luismontoya3141@gmail.com**
 
 ## How It Works
 
 1. Daily receives an incoming call to your phone number.
 2. Daily calls your webhook server (`/start` endpoint).
-3. The server creates a Daily room with dial-in capabilities
-4. The server starts the bot process with the room details
-5. The caller is put on hold with music
-6. The bot joins the Daily room and signals readiness
-7. Daily forwards the call to the Daily room
-8. The caller and the bot are connected, and the bot handles the conversation
+3. The server creates a Daily room with dial-in capabilities.
+4. The server starts the bot process with the room details.
+5. The caller is put on hold with music.
+6. The bot joins the Daily room and signals readiness.
+7. Daily forwards the call to the Daily room.
+8. The caller and the bot are connected, and the bot handles the conversation.
 
 ## Prerequisites
 
-- A Daily account with an API key
+- Pipecat account
 - An OpenAI API key for the bot's intelligence
 - A Cartesia API key for text-to-speech
 
@@ -29,12 +29,12 @@ This project demonstrates how to create a voice bot that can receive phone calls
 
 # Instructions
 
-Lets divide this process in to two major sections.
+Let's divide this process into two major sections.
 
 1. Bot setup
-1. Server setup
+2. Server setup
 
-# Set-up the bot
+## 1. Bot setup
 
 The following steps walk you through packaging and deploying the bot as a managed container on [Pipecat Cloud](https://pipecat.daily.co/).
 
@@ -119,16 +119,7 @@ For detailed instructions on building, deploying, and running your agent, please
 
 ⚠️ **Public hosting required**
 
-Daily.co must be able to reach the `/start` webhook exposed by `server.py`. For production you therefore need to run this script on a publicly-reachable server. Any host that can run long-lived Python processes will do, but a Platform-as-a-Service such as [Render](https://render.com/) makes things especially easy:
-
-1. Push this repository to GitHub.
-2. Sign in to Render and choose **New → Web Service**.
-3. Point Render at your repo, pick a region, and set the **Start command** to `python server.py`.
-4. Add the environment variables from your local `.env` in **Settings → Environment**.
-5. Expose port `7860` (or whichever port you configured in `server.py`).
-6. Deploy – Render will build the image and give you a public URL which you can paste into your Daily dial-in config.
-
-For a more in-depth walkthrough see Render's [Python quick-start guide](https://render.com/docs/deploy-python).
+Daily.co must be able to reach the `/start` webhook exposed by `server.py`. For production you therefore need to run this script on a publicly-reachable server. Any host that can run long-lived Python processes will do such as [render.com](https://render.com/)
 
 #### For local testing, use ngrok to expose your local server
 
@@ -142,26 +133,8 @@ ngrok http 7860
 
 1. Go to https://pipecat.daily.co/{your-organization-name}/settings/telephony and buy a phone number
 
-2. Set-up the webhook Daily should reach for incoming calls
+2. Set up the webhook that Daily should reach for incoming calls
 
 ## Testing
 
 Call the purchased phone number. The system should answer the call, put you on hold briefly, then connect you with the bot.
-
-## Troubleshooting
-
-### Call is not being answered
-
-- Check that your dial-in config is correctly configured to point towards your ngrok server and correct endpoint
-- Make sure the server.py file is running
-- Make sure ngrok is correctly setup and pointing to the correct port
-
-### Call connects but no bot is heard
-
-- Ensure your Daily API key is correct and has SIP capabilities
-- Verify that the Cartesia API key and voice ID are correct
-
-### Bot starts but disconnects immediately
-
-- Check the Daily logs for any error messages
-- Ensure your server has stable internet connectivity
