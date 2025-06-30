@@ -110,12 +110,6 @@ For detailed instructions on building, deploying, and running your agent, please
 
 ### 1. Run the server
 
-Start the webhook server locally for development:
-
-```bash
-python server.py
-```
-
 ⚠️ **Public hosting required**
 
 Daily.co must be able to reach the `/start` webhook exposed by `server.py`. For production you therefore need to run this script on a publicly-reachable server. Any host that can run long-lived Python processes will do, but a Platform-as-a-Service such as [Render](https://render.com/) makes things especially easy:
@@ -132,15 +126,16 @@ For a more in-depth walkthrough see Render's [Python quick-start guide](https://
 #### For local testing, use ngrok to expose your local server
 
 ```bash
+python server.py
 ngrok http 7860
-# Then use the provided URL (e.g., https://abc123.ngrok.io/start)
+# Then use the provided URL in the next step (e.g., https://abc123.ngrok.io/start)
 ```
 
 ### 2. Buy a phone number
 
 1. Go to https://pipecat.daily.co/{your-organization-name}/settings/telephony and buy a phone number
 
-2. Next, set-up the webhook Daily should reach for incoming calls
+2. Set-up the webhook Daily should reach for incoming calls
 
 ## Testing
 
